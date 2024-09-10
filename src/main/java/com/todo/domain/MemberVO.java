@@ -8,7 +8,7 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 public class MemberVO {
-    private Integer mid;
+    private String mid;
     private String mpw;
     private String mname;
 }

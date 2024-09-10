@@ -9,7 +9,7 @@ import java.sql.ResultSet;
 
 public class MemberDAO {
     public MemberVO getWithPassword(String mid, String mpw) throws Exception {
-        String sql = "select * from members where member_id=? and password=?";
+        String sql = "select * from tbl_member where mid=? and mpw=?";
         @Cleanup Connection  connection= ConnectionUtil.INSTANCE.getConnection();
         @Cleanup PreparedStatement psmt = connection.prepareStatement(sql);
         psmt.setString(1, mid);
@@ -17,9 +17,9 @@ public class MemberDAO {
         @Cleanup ResultSet rs = psmt.executeQuery();
         rs.next();
         MemberVO memberVO = MemberVO.builder()
-                .mid(rs.getInt("mid"))
-                .mpw(rs.getString("mpw"))
-                .mname(rs.getString("mname"))
+                .mid(rs.getString(1))
+                .mpw(rs.getString(2))
+                .mname(rs.getString(3))
                 .build();
         return memberVO;
     }

@@ -32,24 +32,25 @@ public class LoginController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String mid = req.getParameter("mid");
-        String pwd = req.getParameter("pwd"); //파리미터 수집
+        String mpw = req.getParameter("mpw"); //파리미터 수집
 
-        String str = mid + pwd;
-
-        MemberDTO memberDTO = MemberDTO.builder()
-                .mid(Integer.valueOf(req.getParameter("mid")))
-                .mpw(req.getParameter("pwd"))
-                .mname(req.getParameter("mname"))
-                .build();
-
+//        String str = mid + pwd;
+//
         try {
-            memberService.login(memberDTO);
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
+            MemberDTO memberDTO = memberService.login(mid, mpw);
+            HttpSession session = req.getSession();
+            session.setAttribute("loginInfo", memberDTO); //HttpSession을 이용해서 setAttribute()를 사용자 공간에 loginInfo라는 이름으로 문자열을 보관
+            resp.sendRedirect("/todo/list"); //정상적으로 로그인된 경우에는 HttpSession을 이용해서 loginInfo이름으로 객체를 저장한다.
 
-        HttpSession session = req.getSession(); //HttpSession을 이용해서 setAttribute()를 사용자 공간에 loginInfo라는
-        session.setAttribute("loginInfo", str);
-        resp.sendRedirect("/todo/list");
+        } catch (Exception e) {
+            resp.sendRedirect("/login?result=error");
+            //예외가 발생한다면
+        }
+//
+//        try {
+//            memberService.login(mid, pwd);
+//        } catch (Exception e) {
+//            throw new RuntimeException(e);
+//        }
     }
 }

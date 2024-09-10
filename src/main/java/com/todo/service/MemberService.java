@@ -17,9 +17,9 @@ public enum MemberService {
         modelMapper = ModelUtil.INSTANCE.get();
     }
 
-    public void login(MemberDTO dto) throws Exception {
-        MemberVO vo = modelMapper.map(dto, MemberVO.class);
-        dao.getWithPassword(String.valueOf(vo.getMid()), vo.getMpw());
+    public MemberDTO login(String mid, String mpw) throws Exception {
+        MemberVO vo = dao.getWithPassword(mid, mpw);
+        MemberDTO dto = modelMapper.map(vo, MemberDTO.class);
+        return dto;
     }
-
 }
