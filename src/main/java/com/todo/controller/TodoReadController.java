@@ -33,7 +33,7 @@ public class TodoReadController extends HttpServlet {
             Cookie viewTodoCookie = findCookie(req.getCookies(), "viewTodos");
             String todoListStr = viewTodoCookie.getValue();
             boolean exist = true;
-            if (todoListStr != null && todoListStr.indexOf(tno+"-") >= 0){
+            if (todoListStr != null && todoListStr.contains(tno + "-")){
                 exist = true;
             }
             log.info("exist" + exist);

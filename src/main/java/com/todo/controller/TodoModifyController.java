@@ -18,7 +18,7 @@ import java.time.format.DateTimeFormatter;
 @WebServlet(name = "todoModifyController", value = "/todo/modify")
 public class TodoModifyController extends HttpServlet {
     private TodoService todoService = TodoService.INSTANCE;
-    private final DateTimeFormatter DATETIMEFORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    private final DateTimeFormatter DATETIMEFORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
